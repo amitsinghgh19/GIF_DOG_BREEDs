@@ -1,0 +1,39 @@
+
+/* @import url('https://fonts.googleapis.com/css?family=Merienda'); */
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy');
+
+body {
+    font-family: 'Indie Flower', cursive;
+    background: url(../images/3006.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .gif {
+    max-width: 100%;
+}
+
+.gif-div-individual {
+    display: inline-grid;
+    width: 30%;
+    margin: 3px;
+	
+}
+
+.gif-div {
+    width: 100%;
+}
+
+h1{
+    /* font-family: 'Merienda', cursive; */
+    font-family: 'Luckiest Guy', cursive;
+    color: white;
+}
+
+h6{
+    color: white;
+    text-align: center;
+    background-color: rgb(11, 123, 228);
+    }
