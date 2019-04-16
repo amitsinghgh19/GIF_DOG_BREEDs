@@ -12,6 +12,7 @@ $(document).ready (function() {
     var newURL;
     var videoTag;
     var gif_src;
+    var downloadButton;
 
     // Search Parameters to display as buttons (Dog breeds)
     var queryTermArray   =['Corgi','American Bulldog','Bichon Frise','Chihuahua','Dachshund', 'German Shepherd', 'Greyhound', 'Maltese', 'Pug', 'Rottweiler', 'Samoyed', 'Tibetan Terrier'];
@@ -52,14 +53,20 @@ $(document).ready (function() {
         $('#dumpSection').empty();
 
         //start dumping requested api data to html
-        for(var i=0;i<queryLimit;i++){
-            Rating = "<h6>Rating: " + gif_response.data[i].rating + "</h6>";
-            gif_src = gif_response.data[i].images.original_mp4.mp4;
-            videoTag = "<video class='gif' loop><source src=" + gif_src + " type='video/mp4'></video>";
-            newGifDiv = ("<div class='gif-div-class' id='gif-div-id" + i + "'>" + Rating + videoTag + "</div>");
-            $("#dumpSection").append(newGifDiv);
-        }
-
+        // Only taking action if the photo has an appropriate rating
+       
+            for(var i=0;i<queryLimit;i++){
+                    Rating = "<h6>Rating: " + gif_response.data[i].rating + "</h6>";
+                    if (gif_response.data[i].rating !== "r" && gif_response.data[i].rating !== "pg-13") {
+                    gif_src = gif_response.data[i].images.original_mp4.mp4;
+                    videoTag = "<video class='gif' loop><source src=" + gif_src + " type='video/mp4'></video>";
+                    //downloadButton='<button class="btn downloadBtn"><i class="fa fa-download"></i>Download</button>' ;
+                    //newGifDiv = ("<div class='gif-div-class' id='gif-div-id" + i + "'>" + Rating + videoTag + downloadButton+ "</div>");
+                    newGifDiv = ("<div class='gif-div-class' id='gif-div-id" + i + "'>" + Rating + videoTag + "</div>");
+                    $("#dumpSection").append(newGifDiv);
+                    }
+            }
+       
         // Clicking on each gif for play and pause
         $(".gif").on("click", function () {
             if (this.paused) {
@@ -75,6 +82,16 @@ $(document).ready (function() {
         });
         
     }
+
+     //download gif on click
+     $(".downloadBtn").click(function(){
+       
+        $.ajax({
+            url: "/download.html", 
+            success: download.bind(true, "text/html", "dlAjaxCallback.html")
+        });
+         
+    })
 
      //add new buttons
      $("#Submit").click(function(){
@@ -104,6 +121,17 @@ $(document).ready (function() {
         //send the AJAX Call the newly assembled URL
         runQuery(queryLimit, newURL);
     })
+
+
+    $(function() {
+        $(document).on("click", "a.fileDownloadSimpleRichExperience", function() {
+            $.fileDownload($(this).attr('href'), {
+                preparingMessageHtml: "We are preparing your report, please wait...",
+                failMessageHtml: "There was a problem generating your report, please try again."
+            });
+            return false; //this is critical to stop the click event which will trigger a normal file download!
+        });
+    });
 
     
 });
