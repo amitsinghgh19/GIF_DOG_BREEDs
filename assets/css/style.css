@@ -15,14 +15,14 @@ body {
     max-width: 100%;
 }
 
-.gif-div-individual {
+.gif-div-class {
     display: inline-grid;
     width: 30%;
     margin: 3px;
 	
 }
 
-.gif-div {
+.gif-div-id {
     width: 100%;
 }
 
