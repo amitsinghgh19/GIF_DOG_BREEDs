@@ -54,7 +54,6 @@ $(document).ready (function() {
 
         //start dumping requested api data to html
         // Only taking action if the photo has an appropriate rating
-       
             for(var i=0;i<queryLimit;i++){
                     Rating = "<h6>Rating: " + gif_response.data[i].rating + "</h6>";
                     if (gif_response.data[i].rating !== "r" && gif_response.data[i].rating !== "pg-13") {
@@ -83,44 +82,25 @@ $(document).ready (function() {
         
     }
 
-     //download gif on click
-     $(".downloadBtn").click(function(){
-       
-        $.ajax({
-            url: "/download.html", 
-            success: download.bind(true, "text/html", "dlAjaxCallback.html")
-        });
-         
-    })
-
      //add new buttons
-     $("#Submit").click(function(){
+     $("#Submit").click(function(event){
         event.preventDefault();
         queryTerm =$("#breedID").val().trim();
         queryTermArray.push(queryTerm);
         addButtons();
+        // Clear the textbox when done
+        $("#breedID").val("");
         console.log("New button added was: "+queryTerm);
-                //perform this if clicked after adding new buttom
-                //pull data from gif api after clicking buttons
-                $(".thisButton").click(function(){
-                    queryTerm = $(this).attr("data-topic");
-                    console.log("Query requested for: "+queryTerm);
-                    //Add in the search term
-                    newURL= queryURLBase+queryTerm;
-                    //send the AJAX Call the newly assembled URL
-                    runQuery(queryLimit, newURL);
-                })
     })
     
-    //pull data from gif api after clicking buttons
-    $(".thisButton").click(function(){
+    $(document.body).on("click", ".thisButton", function() {
         queryTerm = $(this).attr("data-topic");
         console.log("Query requested for: "+queryTerm);
         //Add in the search term
         newURL= queryURLBase+queryTerm;
         //send the AJAX Call the newly assembled URL
         runQuery(queryLimit, newURL);
-    })
+      });
 
 
     $(function() {
