@@ -86,8 +86,10 @@ $(document).ready (function() {
      $("#Submit").click(function(event){
         event.preventDefault();
         queryTerm =$("#breedID").val().trim();
-        queryTermArray.push(queryTerm);
-        addButtons();
+        if(queryTerm.length>0){
+            queryTermArray.push(queryTerm);
+            addButtons();
+        }
         // Clear the textbox when done
         $("#breedID").val("");
         console.log("New button added was: "+queryTerm);
