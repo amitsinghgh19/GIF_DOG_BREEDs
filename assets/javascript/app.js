@@ -55,8 +55,8 @@ $(document).ready (function() {
         //start dumping requested api data to html
         // Only taking action if the photo has an appropriate rating
             for(var i=0;i<queryLimit;i++){
-                    Rating = "<h6>Rating: " + gif_response.data[i].rating + "</h6>";
                     if (gif_response.data[i].rating !== "r" && gif_response.data[i].rating !== "pg-13") {
+                    Rating = "<h6>Rating: " + gif_response.data[i].rating + "</h6>";
                     gif_src = gif_response.data[i].images.original_mp4.mp4;
                     videoTag = "<video class='gif' loop><source src=" + gif_src + " type='video/mp4'></video>";
                     //downloadButton='<button class="btn downloadBtn"><i class="fa fa-download"></i>Download</button>' ;
